@@ -20,6 +20,31 @@
             }
         </style>
     </head>
+    <?php
+    print_r(DB::connection()->getPDO());
+    ?>
+    <strong>Database Connected: </strong>
+    <?php
+    try {
+        \DB::connection()->getPDO();
+        echo \DB::connection()->getDatabaseName();
+    } catch (\Exception $e) {
+        echo 'None';
+    }
+    ?>
+    <strong>Database tables: </strong>
+    <?php
+        print_r(DB::select('SHOW TABLES'));die();
+    try {
+        $tables = DB::select('SHOW TABLES');
+        foreach($tables as $table)
+        {
+            echo $table->Tables_in_db_name;
+        }
+    } catch (\Exception $e) {
+        echo 'None';
+    }
+    ?>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
