@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+//Route::any('/{any}', [UserController::class, 'index'])->where('any', '^(?!api).*$');
+Route::any('/', [UserController::class, 'index']);
+
+Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
+//
+Route::post('/register', [UserController::class, 'register']);

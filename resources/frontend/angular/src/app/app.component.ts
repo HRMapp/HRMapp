@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular';
+
+  loggedIn = false;
+
+  ngOnInit(){
+    this.loggedIn = localStorage.getItem('token') !== null;
+    console.log(localStorage.getItem('token'))
+  }
+
+  public logout() {
+    localStorage.removeItem('token');
+  }
 }

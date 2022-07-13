@@ -28,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss"
             ],
             "scripts": []
           },
@@ -57,8 +58,7 @@
               "outputHashing": "all"
             },
             "dev": {
-              "outputPath": "dist/assets/angular",
-              "baseHref": "/assets/angular/"
+              "outputPath": "dist/assets/angular"
             },
             "development": {
               "buildOptimizer": false,
@@ -105,7 +105,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss"
             ],
             "scripts": []
           }
