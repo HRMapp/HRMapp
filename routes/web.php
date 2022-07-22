@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AngularController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::any('/{any}', [AngularController::class, 'index'])->where('any', '^(?!api).*$');
+//Route::any('/{any}', [UserController::class, 'index'])->where('any', '^(?!api).*$');
+Route::any('/', [UserController::class, 'index']);
+
+//Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
+
+//Route::get('/register', [UserController::class, 'register']);

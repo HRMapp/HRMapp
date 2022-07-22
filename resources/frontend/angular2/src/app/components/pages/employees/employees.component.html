@@ -1,0 +1,107 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 class="card-title ">Списък със служители</h4>
+                                <p class="card-category"> Тези които още не са уволнени</p>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-info btn-block btn-fill add-new" (click)="editProfile()">
+                                    Нов служител
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class=" text-primary">
+                                <th>
+                                    Име
+                                </th>
+                                <th>
+                                    Фамилия
+                                </th>
+                                <th>
+                                    Длъжност
+                                </th>
+                                <th>
+                                    Заплата
+                                </th>
+                                <th>
+                                    Отпуск
+                                </th>
+                                <th>
+                                    Болнични
+                                </th>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngFor="let employee of employees">
+                                    <tr (click)="openProfile(employee)">
+                                        <td>{{employee.first_name}}</td>
+                                        <td>{{employee.last_name}}</td>
+                                        <td>{{employee.position}}</td>
+                                        <td  class="text-primary">{{employee.gross_salary}}</td>
+                                        <td>отпускк</td>
+                                        <td>болничен</td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title mt-0"> Напуснали служители</h4>
+                        <p class="card-category"> Here is a subtitle for this table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="">
+                                <th>
+                                    Име
+                                </th>
+                                <th>
+                                    Фамилия
+                                </th>
+                                <th>
+                                    Длъжност
+                                </th>
+                                <th>
+                                    Заплата
+                                </th>
+                                <th>
+                                    Локация
+                                </th>
+                                <th>
+                                    Дата
+                                </th>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngFor="let employee of past_employees">
+                                    <tr (click)="openProfile(employee)">
+                                        <td>{{employee.first_name}}</td>
+                                        <td>{{employee.last_name}}</td>
+                                        <td>{{employee.position}}</td>
+                                        <td  class="text-primary">{{employee.gross_salary}}</td>
+                                        <td>{{employee.location}}</td>
+                                        <td>{{employee.end}}</td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
