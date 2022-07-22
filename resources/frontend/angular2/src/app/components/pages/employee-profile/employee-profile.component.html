@@ -1,0 +1,183 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <ng-container  *ngIf="action !== 'create'; else newEmployee">
+                            <h4 class="card-title">Досие на служител</h4>
+                        </ng-container>
+                        <ng-template #newEmployee>
+                            <h4 class="card-title">Нов служител</h4>
+                        </ng-template>
+                        <p class="card-category">Complete your profile</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Департамент" disabled [value]="employee['department']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Позиция" disabled [value]="employee['position']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Локация" disabled [value]="employee['location']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Служебен телефон" disabled [value]="employee['work_phone']">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Име" type="text" [value]="employee['first_name']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Презиме" type="text" [value]="employee['surname']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Фамилия" type="text" [value]="employee['last_name']">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Адрес" type="text" [value]="employee['address']">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Град" type="text" [value]="employee['city']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Държава" type="text" [value]="employee['country']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Пощенски код" type="text" [value]="employee['post_code']">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="ЕГН" type="text" [value]="employee['pin']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Личен телефон" type="text" [value]="employee['personal_phone']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Имейл" type="text" [value]="employee['email']">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Назначен на" type="date" [value]="employee['start']">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Ръководители" type="text" [value]="employee['supervisors']">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>About Me</label>
+                                    <mat-form-field class="example-full-width">
+                                        <textarea matInput placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."></textarea>
+                                    </mat-form-field>
+                                     <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                            <textarea class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <button *ngIf="action === 'edit'" mat-raised-button type="submit" class="btn btn-danger pull-right">Обнови служител</button>
+                                <button *ngIf="action === 'create'" mat-raised-button type="submit" class="btn btn-warning pull-right">Добави служител</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" src="./assets/img/faces/marc.jpg" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                        <h4 class="card-title">Alec Thompson</h4>
+                        <p class="card-description">
+                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                        </p>
+                        <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+                    </div>
+                </div>
+
+
+
+                <button (click)="getUser()" mat-raised-button type="submit" class="btn btn-danger pull-right">User</button>
+                <button (click)="getUsers()" mat-raised-button type="submit" class="btn btn-warning pull-right">Users</button>
+                <form [formGroup]="form" class="form mt-3" (submit)="register()">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <input type="text" formControlName="first_name" class="form-control" placeholder="First name">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <input class="text" formControlName="last_name" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <input class="email" formControlName="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <input type="password" formControlName="password" class="form-control" placeholder="Password">
+                        </div>
+
+                        <div class="form-group  col-6">
+                            <input type="password" formControlName="password_confirmation" class="form-control"
+                                   placeholder="Password confirmation">
+                        </div>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" [disabled]="!form.valid">Register</button>
+                </form>
+                <button (click)="getEmployee()" mat-raised-button type="submit" class="btn btn-danger pull-right">Get current user</button>
+                <button (click)="someDatetest()" mat-raised-button type="submit" class="btn btn-danger pull-right">Month diff</button>
+            </div>
+        </div>
+    </div>
+</div>
