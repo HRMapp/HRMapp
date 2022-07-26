@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SickLeaveRequest  extends Model
+class SickLeave  extends Model
 {
-    protected $table = 'sick_leave_requests';
+    protected $table = 'sick_leave';
     public $timestamps = false;
 
     /**

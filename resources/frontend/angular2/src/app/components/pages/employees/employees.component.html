@@ -18,8 +18,12 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+                            <mat-form-field>
+                                <input matInput (keyup)="filteringCurrent($event.target.value)"
+                                       placeholder="Търсене по име, фамилия, длъжност, департамент, локация...">
+                            </mat-form-field>
                             <table class="table table-hover">
-                                <thead class=" text-primary">
+                                <thead class="text-info">
                                 <th>
                                     Име
                                 </th>
@@ -38,9 +42,12 @@
                                 <th>
                                     Болнични
                                 </th>
+                                <th>
+                                    Опции
+                                </th>
                                 </thead>
                                 <tbody>
-                                <ng-container *ngFor="let employee of employees">
+                                <ng-container *ngFor="let employee of employees | searchEmployees: filter_current">
                                     <tr (click)="openProfile(employee)">
                                         <td>{{employee.first_name}}</td>
                                         <td>{{employee.last_name}}</td>
@@ -48,6 +55,14 @@
                                         <td  class="text-primary">{{employee.gross_salary}}</td>
                                         <td>отпускк</td>
                                         <td>болничен</td>
+                                        <td>
+                                            <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </ng-container>
                                 </tbody>
@@ -64,8 +79,12 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+                            <mat-form-field>
+                                <input matInput (keyup)="filteringPast($event.target.value)"
+                                       placeholder="Търсене по име, фамилия, длъжност, департамент, локация...">
+                            </mat-form-field>
                             <table class="table table-hover">
-                                <thead class="">
+                                <thead class="text-warning">
                                 <th>
                                     Име
                                 </th>
@@ -84,9 +103,12 @@
                                 <th>
                                     Дата
                                 </th>
+                                <th>
+                                    Опции
+                                </th>
                                 </thead>
                                 <tbody>
-                                <ng-container *ngFor="let employee of past_employees">
+                                <ng-container *ngFor="let employee of past_employees | searchEmployees: filter_past">
                                     <tr (click)="openProfile(employee)">
                                         <td>{{employee.first_name}}</td>
                                         <td>{{employee.last_name}}</td>
@@ -94,6 +116,14 @@
                                         <td  class="text-primary">{{employee.gross_salary}}</td>
                                         <td>{{employee.location}}</td>
                                         <td>{{employee.end}}</td>
+                                        <td>
+                                            <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </ng-container>
                                 </tbody>

@@ -1,0 +1,70 @@
+<form [formGroup]="form">
+    <div class="form-group">
+        <mat-form-field appearance="fill">
+            <mat-label>Избери служител</mat-label>
+            <mat-select formControlName='employee_id' [(ngModel)]='sick_leave_request.employee_id'>
+                <mat-form-field>
+                    <input matInput (keyup)="filtering($event.target.value)"
+                           placeholder="Търсене по име, фамилия, длъжност, департамент, локация...">
+                </mat-form-field>
+                <ng-container *ngFor="let employee of employees | searchEmployees: filter">
+                    <mat-option [value]="employee.id" [selected]="sick_leave_request.employee_id">
+                        <strong>{{employee.first_name}} {{employee.last_name}} </strong>
+                        {{employee.position}} - {{employee.department}} ({{employee.location}})</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Избери начална и крайна дата</mat-label>
+            <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                <input matStartDate formControlName="start_date" placeholder="Start date" [(ngModel)]='sick_leave_request.start_date'>
+                <input matEndDate formControlName="end_date" placeholder="End date" [(ngModel)]='sick_leave_request.end_date'>
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <mat-error *ngIf="form.controls.start_date.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+            <mat-error *ngIf="form.controls.end_date.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Дни</mat-label>
+            <input matInput type="number" placeholder="Дни" [(ngModel)]='sick_leave_request.days' formControlName='days'>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Разход (лв)</mat-label>
+            <input matInput type="number" placeholder="Разход (лв)" [(ngModel)]='sick_leave_request.cost' formControlName='cost'>
+        </mat-form-field>
+
+        <div class="submit-form">
+            <div>
+                <button mat-button mat-dialog-close class="btn btn-round btn-fill btn-default" (click)="close()">Отмени</button>
+            </div>
+            <ng-container *ngIf="is_edit; else addNew;">
+                <div>
+                    <button class="btn btn-round btn-fill btn-info" (click)="edit()">Редактирай</button>
+                </div>
+            </ng-container>
+            <ng-template #addNew>
+                <div>
+                    <button class="btn btn-round btn-fill btn-info" (click)="add()">
+                        Добави
+                    </button>
+                </div>
+            </ng-template>
+        </div>
+
+
+        <p>Selected range: {{form.value | json}}</p>
+        <p>{{sick_leave_request | json}}</p>
+        <p>{{is_edit | json}}</p>
+        <p>{{form.valid | json}}</p>
+        <p>{{is_edit | json}}</p>
+        <p>asd</p>
+
+
+    </div>
+</form>

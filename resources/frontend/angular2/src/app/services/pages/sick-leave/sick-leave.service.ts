@@ -19,10 +19,13 @@ export class SickLeaveService {
         });
     }
 
+    private api_url = this.url.base_url + '/sick-leave/';
 
-    public getSickLeaves(): Observable<any> {
-        return this.http.get(this.url.base_url + '/sick-leave', {headers: this.headers});
+    public get(): Observable<any> {
+        return this.http.get(this.api_url, {headers: this.headers});
     }
 
-
+    public delete(id: number): Observable<any> {
+        return this.http.delete<any>(this.api_url + id, {headers: this.headers});
+    }
 }

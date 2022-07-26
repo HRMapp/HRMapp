@@ -18,7 +18,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: '' },
     { path: '/profile', title: 'Профил',  icon:'person', class: '' },
     { path: '/employees', title: 'Служители',  icon:'content_paste', class: '' },
-    { path: '/sick-leave-requests', title: 'Болнични',  icon:'library_books', class: '' },
+    { path: '/sick-leave', title: 'Болнични',  icon:'library_books', class: '' },
 ];
 
 @Component({

@@ -11,6 +11,8 @@ import {EmployeeProfileComponent} from '../employee-profile/employee-profile.com
 })
 export class EmployeesComponent implements OnInit {
 
+    public filter_current = '';
+    public filter_past = '';
     public employees;
     public past_employees;
 
@@ -75,6 +77,13 @@ export class EmployeesComponent implements OnInit {
         });
     }
 
+    public filteringCurrent(event: Event): void {
+        this.filter_current = String(event);
+        console.log(event);
+    }
 
-
+    public filteringPast(event: Event): void {
+        this.filter_past = String(event);
+        console.log(event);
+    }
 }

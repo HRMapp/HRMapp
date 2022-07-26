@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Salaries\SalariesController;
-use App\Http\Controllers\SickLeaveRequestsController;
+use App\Http\Controllers\SalariesController;
+use App\Http\Controllers\SickLeaveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ Route::resource('/salaries', SalariesController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy'])
     ->middleware('auth:api');
 
-Route::resource('/sick-leave', SickLeaveRequestsController::class)
+Route::resource('sick-leave', SickLeaveController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy'])
     ->middleware('auth:api');
 

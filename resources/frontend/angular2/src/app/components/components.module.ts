@@ -11,12 +11,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeeProfileComponent } from './pages/employee-profile/employee-profile.component';
-import { SickLeaveRequestsComponent } from './pages/sick-leave-requests/sick-leave-requests.component';
-import { RegisterSickLeaveComponent } from './pages/sick-leave-requests/register-sick-leave/register-sick-leave.component';
+import { SickLeaveComponent } from './pages/sick-leave/sick-leave.component';
+import { RegisterSickLeaveComponent } from './pages/sick-leave/register-sick-leave/register-sick-leave.component';
+import {SearchEmployeesPipe} from '../pipes/pages/search-employees.pipe'
 
 @NgModule({
   imports: [
@@ -28,7 +30,8 @@ import { RegisterSickLeaveComponent } from './pages/sick-leave-requests/register
       MatSelectModule,
       ReactiveFormsModule,
       MatDatepickerModule,
-      MatNativeDateModule
+      MatNativeDateModule,
+      MatTooltipModule
 
 
   ],
@@ -39,8 +42,9 @@ import { RegisterSickLeaveComponent } from './pages/sick-leave-requests/register
     EmployeesComponent,
     LoginComponent,
     EmployeeProfileComponent,
-    SickLeaveRequestsComponent,
+    SickLeaveComponent,
     RegisterSickLeaveComponent,
+      SearchEmployeesPipe
 
   ],
   exports: [
@@ -50,7 +54,8 @@ import { RegisterSickLeaveComponent } from './pages/sick-leave-requests/register
       EmployeesComponent,
       LoginComponent,
       EmployeeProfileComponent,
-      SickLeaveRequestsComponent,
+      SickLeaveComponent,
+      SearchEmployeesPipe
   ]
 })
 export class ComponentsModule { }

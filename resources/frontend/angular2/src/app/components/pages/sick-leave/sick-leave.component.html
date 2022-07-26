@@ -1,0 +1,184 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 class="card-title">Списък на болнични бля</h4>
+                                <p class="card-category"> Списък с адси и нещо си изглежда добре този текст</p>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-info btn-block btn-fill add-new" (click)="add()">
+                                    Нов Болничен
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ng-container *ngIf="sick_leave_requests.length > 0; else no_requests">
+                            <div class="table-responsive">
+                                <mat-form-field>
+                                    <input matInput (keyup)="filteringCurrent($event.target.value)"
+                                           placeholder="Търсене по име, фамилия, длъжност, департамент, локация...">
+                                </mat-form-field>
+                                <table class="table table-hover">
+                                    <thead class="text-info">
+                                    <th>Име</th>
+                                    <th>Фамилия</th>
+                                    <th>Длъжност</th>
+                                    <th>Локация</th>
+                                    <th>Департамент</th>
+                                    <th>Начална дата</th>
+                                    <th>Крайна дата</th>
+                                    <th>Дни</th>
+                                    <th>Разход</th>
+                                    <th>Опции</th>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container
+                                        *ngFor="let s_request of sick_leave_requests | searchEmployees: filter_current">
+                                        <tr [ngClass]="changeBackground(s_request.end_date)">
+                                            <td>{{s_request.first_name}}</td>
+                                            <td>{{s_request.last_name}}</td>
+                                            <td>{{s_request.position}}</td>
+                                            <td>{{s_request.department}}</td>
+                                            <td>{{s_request.location}}</td>
+                                            <td>{{s_request.start_date}}</td>
+                                            <td>{{s_request.end_date}}</td>
+                                            <td>{{s_request.days}}</td>
+                                            <ng-container *ngIf="s_request.cost; else no_cost">
+                                                <td>{{s_request.cost + ' лв.'}}</td>
+                                            </ng-container>
+                                            <td>
+                                                <button mat-raised-button
+                                                        type="button"
+                                                        matTooltip="Профил"
+                                                        [matTooltipPosition]="'above'"
+                                                        class="btn btn-link btn-sm btn-just-icon"
+                                                        (click)="showProile(s_request.employee_id)"
+                                                >
+                                                    <i class="material-icons profile-icon">person</i>
+                                                </button>
+                                                <button mat-raised-button
+                                                        type="button"
+                                                        matTooltip="Реактирай"
+                                                        [matTooltipPosition]="'above'"
+                                                        class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                                        (click)="edit(s_request)"
+                                                >
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button
+                                                        type="button"
+                                                        matTooltip="Премахни"
+                                                        [matTooltipPosition]="'above'"
+                                                        class="btn btn-danger btn-link btn-sm btn-just-icon"
+                                                        (click)="delete(s_request)"
+                                                >
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    <tr>
+                                        <td><strong>Общо</strong></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><strong>2</strong></td>
+                                        <td><strong>123</strong></td>
+                                        <td>-</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-12">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-warning">
+                            <h4 class="card-title mt-0">Регистрирани болнияни за предходни години</h4>
+                            <p class="card-category"> Here is a subtitle for this table асд дса</p>
+                        </div>
+                        <div class="card-body">
+                            <ng-container *ngIf="past_sick_leave_requests.length > 0; else no_requests">
+                                <div class="table-responsive">
+                                <mat-form-field>
+                                    <input matInput (keyup)="filteringPast($event.target.value)"
+                                           placeholder="Търсене по име, фамилия, длъжност, департамент, локация...">
+                                </mat-form-field>
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                    <th>Име</th>
+                                    <th>Фамилия</th>
+                                    <th>Длъжност</th>
+                                    <th>Локация</th>
+                                    <th>Департамент</th>
+                                    <th>Начална дата</th>
+                                    <th>Крайна дата</th>
+                                    <th>Дни</th>
+                                    <th>Разход</th>
+                                    <th>Опции</th>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container
+                                        *ngFor="let s_request of past_sick_leave_requests | searchEmployees: filter_past">
+                                        <tr>
+                                            <td>{{s_request.first_name}}</td>
+                                            <td>{{s_request.last_name}}</td>
+                                            <td>{{s_request.position}}</td>
+                                            <td>{{s_request.department}}</td>
+                                            <td>{{s_request.location}}</td>
+                                            <td>{{s_request.start_date}}</td>
+                                            <td>{{s_request.end_date}}</td>
+                                            <td>{{s_request.days}}</td>
+                                            <ng-container *ngIf="s_request.cost; else no_cost">
+                                                <td>{{s_request.cost + ' лв.'}}</td>
+                                            </ng-container>
+                                            <td>
+                                                <button mat-raised-button type="button"
+                                                        matTooltip="Профил" [matTooltipPosition]="'above'"
+                                                        class="btn btn-link btn-sm btn-just-icon"
+                                                        (click)="showProile(s_request.employee_id)"
+                                                >
+                                                    <i class="material-icons profile-icon">person</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #no_cost>
+    <td> -</td>
+</ng-template>
+
+<ng-template #no_requests>
+<div style="text-align: center">
+    <h2>
+        Нямате регистрирани болнични листове.
+    </h2>
+</div>
+</ng-template>
+
+
+
+
+
+

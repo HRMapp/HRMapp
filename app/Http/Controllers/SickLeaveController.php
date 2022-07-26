@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SickLeaveRequest;
+use App\Models\SickLeave;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\JsonResponse;
 
-class SickLeaveRequestsController extends Controller
+class SickLeaveController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
-            $sickLeaveRequests = SickLeaveRequest::join('employees', 'sick_leave_requests.employee_id', '=', 'employees.id')
-                ->get(['sick_leave_requests.*', 'employees.first_name','employees.last_name' ,'employees.position','employees.location' ]);
-            return response()->json($sickLeaveRequests);
+            $sickLeave = SickLeave::join('employees', 'sick_leave.employee_id', '=', 'employees.id')
+                ->get(['sick_leave.*', 'employees.first_name','employees.last_name' ,'employees.position','employees.department', 'employees.location' ]);
+            return response()->json($sickLeave);
 
             // return only the employees //
             //            $employees = Employee::all()->toArray();
@@ -88,13 +90,21 @@ class SickLeaveRequestsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the registered sick leave from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        try {
+            $sickLeave = SickLeave::find($id);
+            if (!is_null($sickLeave)) {
+                return response()->json($sickLeave->delete());
+            }
+        } catch (\Throwable $e) {
+            return $this->handleThrowable($e);
+        }
     }
+
 }

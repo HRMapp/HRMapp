@@ -9,7 +9,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { EmployeesComponent } from '../../components/pages/employees/employees.component';
 import { EmployeeProfileComponent } from '../../components/pages/employee-profile/employee-profile.component';
-import { SickLeaveRequestsComponent } from '../../components/pages/sick-leave-requests/sick-leave-requests.component';
+import { SickLeaveComponent } from '../../components/pages/sick-leave/sick-leave.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 
 export const AdminLayoutRoutes: Routes = [
@@ -64,6 +64,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'profile',  component: EmployeeProfileComponent },
     { path: 'employees',  component: EmployeesComponent },
-    { path: 'sick-leave-requests',  component: SickLeaveRequestsComponent },
+    { path: 'sick-leave',  component: SickLeaveComponent },
     { path: 'upgrade',        component: UpgradeComponent },
 ];

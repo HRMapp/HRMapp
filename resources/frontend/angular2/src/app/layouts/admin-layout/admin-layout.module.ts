@@ -33,7 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatTooltipModule,
       MatDatepickerModule,
-      MatNativeDateModule
+      MatNativeDateModule,
   ],
   declarations: [
     DashboardComponent,

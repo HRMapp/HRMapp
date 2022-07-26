@@ -19,6 +19,7 @@ import { MatDialogModule, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 
 
 
+// @ts-ignore
 @NgModule({
   imports: [
     BrowserAnimationsModule,
