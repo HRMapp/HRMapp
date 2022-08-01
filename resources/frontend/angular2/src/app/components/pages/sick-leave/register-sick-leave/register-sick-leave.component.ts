@@ -1,8 +1,11 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {DatePipe} from '@angular/common'
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormGroup, FormBuilder, Validators, FormControl, FormsModule} from '@angular/forms';
-import {EmployeesService} from '../../../../services/pages/employees/employees.service'
+import {EmployeesService} from '../../../../services/pages/employees/employees.service';
+import {SickLeaveService} from '../../../../services/pages/sick-leave/sick-leave.service';
 import {Employee} from '../../../../classes/pages/employee'
+import {SwalService} from "../../../../services/helpers/swal/swal.service";
 
 @Component({
     selector: 'register-sick-leave',
@@ -23,23 +26,31 @@ export class RegisterSickLeaveComponent implements OnInit {
         'cost': ''
     };
 
-
+    public form = this.fb.group({
+        employee_id: ['', [Validators.required]],
+        start_date: ['', [Validators.required]],
+        end_date: ['', [Validators.required]],
+        days: ['', [Validators.required]],
+        cost: '',
+    });
 
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private employees_service: EmployeesService,
-        private fb: FormBuilder
+        private sick_leave_service: SickLeaveService,
+        public datepipe: DatePipe,
+        private fb: FormBuilder,
+        private swal_service: SwalService,
+        private dialogRef: MatDialogRef<any>
     ) {
     }
 
     ngOnInit(): void {
         this.is_edit = (this.data?.s_request) ? true : false;
         (this.is_edit) ? this.injectEditData() : '';
-
         this.getEmployees();
-
-    }
+    };
 
     private injectEditData(): void {
         this.sick_leave_request = {
@@ -50,45 +61,68 @@ export class RegisterSickLeaveComponent implements OnInit {
             'days': this.data.s_request.days,
             'cost': this.data.s_request.cost
         }
-    }
+    };
 
-    public add() {
+    public add(): void {
+        if (this.form.valid) {
+            this.sick_leave_request.start_date = this.datepipe.transform(this.sick_leave_request.start_date, 'YYYY-MM-dd');
+            this.sick_leave_request.end_date = this.datepipe.transform(this.sick_leave_request.end_date, 'YYYY-MM-dd');
 
-    }
+            this.sick_leave_service.add(this.sick_leave_request).subscribe(
+                result => {
+                    if (result) {
+                        this.dialogRef.close(
+                            this.getResponseData()
+                        );
+                    } else {
+                        this.swal_service.error({text: 'Възникна грешка при добавянето на болничния запис, моля опитайте по-късно.'});
+                    }
+                }, error => {
+                    this.swal_service.error({text: 'Възникна грешка при добавянето на болничния запис: ' + error.message});
+                }
+            )
+        }
+    };
 
-    public edit(){
+    public edit(): void {
+        if (this.form.valid) {
+            this.sick_leave_request.start_date = this.datepipe.transform(this.sick_leave_request.start_date, 'YYYY-MM-dd');
+            this.sick_leave_request.end_date = this.datepipe.transform(this.sick_leave_request.end_date, 'YYYY-MM-dd');
 
-    }
-
-    public close(){
-    }
+            this.sick_leave_service.edit(this.sick_leave_request).subscribe(
+                result => {
+                    if (result) {
+                        this.dialogRef.close(
+                            this.getResponseData()
+                        );
+                    } else {
+                        this.swal_service.error({text: 'Възникна грешка при обновлението на болничния запис, моля опитайте по-късно.'});
+                    }
+                }, error => {
+                    this.swal_service.error({text: 'Възникна грешка при обновлението на болничния запис: ' + error.message});
+                }
+            )
+        }
+    };
 
     private getEmployees(): void {
         this.employees_service.getEmployees().subscribe(
             result => {
-                console.log(result)
                 this.employees = result
             }, error => {
-                console.log(error);
+                this.swal_service.error({text: 'Възникна грешка при призмането на данните за служителите: ' + error.message});
             }
         )
-    }
-
-    form = this.fb.group({
-        employee_id: ['', [Validators.required]],
-        start_date: ['', [Validators.required]],
-        end_date: ['', [Validators.required]],
-        days: ['', [Validators.required]],
-        cost: '',
-    });
-
-
-    save() {
-
-    }
+    };
 
     public filtering(event: Event): void {
         this.filter = String(event);
-        console.log(event);
-    }
+    };
+
+    private getResponseData(): any {
+        return {
+            'sick_leave': this.sick_leave_request,
+            'employee': this.employees.filter(e => e.id == this.sick_leave_request.employee_id)
+        };
+    };
 }

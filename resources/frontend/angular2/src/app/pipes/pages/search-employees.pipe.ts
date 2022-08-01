@@ -7,8 +7,6 @@ import {Employee} from '../../classes/pages/employee';
 export class SearchEmployeesPipe implements PipeTransform {
 
     transform(employees: Employee[], filter: string): Employee[] {
-        console.log(employees);
-        console.log(filter);
         return (employees.length === 0 || filter === '') ? employees : employees.filter(employee => {
             return employee.first_name.toLowerCase().includes(filter.toLowerCase()) ||
                 employee.last_name.toLowerCase().includes(filter.toLowerCase()) ||

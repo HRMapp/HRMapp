@@ -19,40 +19,37 @@ class SickLeaveController extends Controller
         try {
             $sickLeave = SickLeave::join('employees', 'sick_leave.employee_id', '=', 'employees.id')
                 ->get(['sick_leave.*', 'employees.first_name','employees.last_name' ,'employees.position','employees.department', 'employees.location' ]);
-            return response()->json($sickLeave);
-
-            // return only the employees //
-            //            $employees = Employee::all()->toArray();
-            //            return response()->json($employees);
 
 
-
-//            $sickLeaveRequests = SickLeaveRequest::all()->toArray();
-//            return response()->json($sickLeaveRequests);
         } catch (\Throwable $e) {
 
         }
+        return response()->json($sickLeave);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+//     * @return JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $sickLeave = SickLeave::insert([
+                'employee_id' => $request['employee_id'],
+                'start_date' => $request['start_date'],
+                'end_date' => $request['end_date'],
+                'days' => $request['days'],
+                'cost' => $request['cost']
+            ]);
+
+//            print_r($sickLeave);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+        return $sickLeave;
     }
 
     /**
@@ -66,27 +63,32 @@ class SickLeaveController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $sickLeave = SickLeave::where('id', $id)->update(
+                [
+                    'employee_id' => $request['employee_id'],
+                    'start_date' => $request['start_date'],
+                    'end_date' => $request['end_date'],
+                    'days' => $request['days'],
+                    'cost' => $request['cost']
+                ]
+            );
+
+        } catch (\Throwable $e){
+            throw $e;
+        };
+
+        return response()->json($sickLeave);
     }
 
     /**
@@ -105,6 +107,6 @@ class SickLeaveController extends Controller
         } catch (\Throwable $e) {
             return $this->handleThrowable($e);
         }
+        return response()->json($sickLeave);
     }
-
 }

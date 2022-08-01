@@ -13,8 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule, MAT_DIALOG_DATA  } from '@angular/material/dialog';
-
 
 
 
@@ -35,11 +35,13 @@ import { MatDialogModule, MAT_DIALOG_DATA  } from '@angular/material/dialog';
       MatDialogModule,
       MatSelectModule,
       MatDatepickerModule,
-      MatNativeDateModule
+      MatNativeDateModule,
+      MatPaginatorModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+
 
   ],
   providers: [

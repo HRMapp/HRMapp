@@ -18,6 +18,7 @@ class SickLeave  extends Model
         'employee_id',
         'start_date',
         'end__date',
-        'days'
+        'days',
+        'cost'
     ];
 }

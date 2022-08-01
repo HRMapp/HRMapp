@@ -37,7 +37,6 @@ Route::resource('/salaries', SalariesController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy'])
     ->middleware('auth:api');
 
-Route::resource('sick-leave', SickLeaveController::class)
+Route::resource('/sick-leave', SickLeaveController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy'])
     ->middleware('auth:api');
-

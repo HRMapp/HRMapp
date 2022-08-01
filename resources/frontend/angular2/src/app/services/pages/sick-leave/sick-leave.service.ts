@@ -25,6 +25,18 @@ export class SickLeaveService {
         return this.http.get(this.api_url, {headers: this.headers});
     }
 
+    public add(s_request): Observable<any> {
+        return this.http.post(this.api_url, s_request, {headers: this.headers});
+    }
+
+    public edit(s_request): Observable<any> {
+        let id = s_request.id
+        let options = {
+            headers: this.headers
+        }
+        return this.http.put<any>(this.api_url + id, s_request, options);
+    }
+
     public delete(id: number): Observable<any> {
         return this.http.delete<any>(this.api_url + id, {headers: this.headers});
     }
