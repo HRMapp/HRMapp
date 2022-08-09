@@ -1,4 +1,5 @@
 import {Component, OnInit, NgModule, AfterViewInit} from '@angular/core';
+import {EmployeeProfileComponent} from '../employee-profile/employee-profile.component'
 import {SickLeaveService} from '../../../services/pages/sick-leave/sick-leave.service'
 import {RegisterSickLeaveComponent} from './register-sick-leave/register-sick-leave.component'
 import {MatDialog} from '@angular/material/dialog';
@@ -81,7 +82,6 @@ export class SickLeaveComponent implements OnInit {
         ]
     }
 
-
     public sick_leave = {
         'current_year': [],
         'past_years': [],
@@ -90,7 +90,7 @@ export class SickLeaveComponent implements OnInit {
     public summarized = {
         'current_year': {
             'days': 0,
-            'cost': 0,
+            'cost': 0
         },
         'past_years': {
             'days': 0,
@@ -158,14 +158,17 @@ export class SickLeaveComponent implements OnInit {
         setTimeout(() => {
             this.checkOngoing();
             this.checkFuture();
+            this.getTotal('current_year');
+            this.getTotal('past_years')
         }, 2000);
+
     }
 
     private get(): void {
         this.sick_leave_service.get().subscribe(
             leave_requests => {
                 this.formatSickLeave(leave_requests);
-                this.initSummarizedData();
+                // this.initSummarizedData();
             }
         )
     }
@@ -179,20 +182,20 @@ export class SickLeaveComponent implements OnInit {
         })
     };
 
-    private initSummarizedData(): void {
-        this.summarized.current_year.cost = 0;
-        this.summarized.past_years.cost = 0;
-
-        this.sick_leave.current_year.forEach(s => {
-            this.summarized.current_year.cost += s.cost;
-            this.summarized.current_year.days += s.days;
-        })
-
-        this.sick_leave.past_years.forEach(s => {
-            this.summarized.past_years.cost += s.cost;
-            this.summarized.past_years.days += s.days;
-        })
-    };
+    // private initSummarizedData(): void {
+    //     this.summarized.current_year.cost = 0;
+    //     this.summarized.past_years.cost = 0;
+    //
+    //     this.sick_leave.current_year.forEach(s => {
+    //         this.summarized.current_year.cost += s.cost;
+    //         this.summarized.current_year.days += s.days;
+    //     })
+    //
+    //     this.sick_leave.past_years.forEach(s => {
+    //         this.summarized.past_years.cost += s.cost;
+    //         this.summarized.past_years.days += s.days;
+    //     })
+    // };
 
     private checkFuture(): void {
         let future_sick_leave = this.sick_leave.current_year.filter(e => {
@@ -212,7 +215,7 @@ export class SickLeaveComponent implements OnInit {
 
     private showNotification(type: string, sick_leave?: any): any {
         let message = this.getNotificationMessage(type, sick_leave);
-        (type == 'add' || type == 'edit') ? type = 'success' : '';
+        (type == 'add' || type == 'edit' || type == 'delete') ? type = 'success' : '';
 
         $.notify({
             icon: "notifications",
@@ -269,9 +272,15 @@ export class SickLeaveComponent implements OnInit {
 
                 return message;
                 break;
+            case 'delete':
+                message = 'Успешно изтрихте болничния лист на:';
+                message += `<br>${sick_leave['first_name']} ${sick_leave['last_name']} (${sick_leave['position']})`;
+                message += `<br>за периода от ${sick_leave['start_date']} до ${sick_leave['end_date']}`;
+                return message;
+                break;
             case 'danger':
                 message = 'Възникна проблем, моля обърнете се към системния администратор.';
-                return
+                return message;
                 break;
             case 'info':
                 return message;
@@ -302,7 +311,7 @@ export class SickLeaveComponent implements OnInit {
             },
             autoFocus: false,
             disableClose: false,
-            minWidth: 400
+            minWidth: 500
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result && result != 'cancel') {
@@ -324,7 +333,7 @@ export class SickLeaveComponent implements OnInit {
                 if (r.isConfirmed) {
                     this.sick_leave_service.delete(sick_leave.id).subscribe(result => {
                         if (result) {
-                            this.showNotification('danger', sick_leave);
+                            this.showNotification('delete', sick_leave);
                             this.swal_service.success({text: `Записът беше изтрит.`});
                             this.get();
                         }
@@ -335,42 +344,57 @@ export class SickLeaveComponent implements OnInit {
             });
     }
 
-    public showProfile(employee_id): void {
+    public showProfile(user_id): void {
+        this.dialog.open(EmployeeProfileComponent, {
+            data: {
+                employee_id: user_id,
+                action: 'view'
+            },
+            autoFocus: false,
+            disableClose: false
+        });
     }
 
+    public export() {
+        return this.sick_leave_service.export();
+    }
 
     public notifyOngoing(sick_leave): any {
         return (new Date(sick_leave.end_date) > new Date() && new Date(sick_leave.start_date) < new Date()) ?
             'ongoing' : new Date(sick_leave.end_date) > new Date() && new Date(sick_leave.start_date) > new Date() ?
                 'future' : null;
-
-        // return (new Date() < new Date(end_date)) ? "text-warning" : null;
     }
 
+    // private updateSumDataNew(segment): void {
+    //     this.summarized[segment].days = 0
+    //     this.summarized[segment].cost = 0
+    //     var costs = document.getElementsByClassName(segment + '-cost');
+    //     var days = document.getElementsByClassName(segment + '-days');
+    //
+    //     for (var i = 0, len = costs.length; i < len; i++
+    //     ) {
+    //         this.summarized[segment].cost += parseInt(costs[i].innerHTML)
+    //     }
+    //
+    //     for (var i = 0, len = days.length; i < len; i++) {
+    //         this.summarized[segment].days += parseInt(days[i].innerHTML)
+    //     }
+    // }
 
-    public filtering(event: Event, segment, type): void {
-        this.filter[segment][type] = String(event);
-        this.updateSumDataNew(segment);
+
+    private onPageChange(event: PageEvent): void {
+        this.pagination = event
     }
 
-    private updateSumDataNew(segment): void {
-        this.summarized[segment].days = 0
-        this.summarized[segment].cost = 0
-        var costs = document.getElementsByClassName(segment + '-cost');
-        var days = document.getElementsByClassName(segment + '-days');
-
-        for (var i = 0, len = costs.length; i < len; i++
-        ) {
-            this.summarized[segment].cost += parseInt(costs[i].innerHTML)
-        }
-
-        for (var i = 0, len = days.length; i < len; i++) {
-            this.summarized[segment].days += parseInt(days[i].innerHTML)
-        }
+    public sorting(segment: string, field: string, event ?: Event): void {
+        this.sort[segment]['field'] = field;
+        (this.sort[segment]['action'] === 'descending') ?
+            this.sort[segment]['action'] = 'ascending' :
+            this.sort[segment]['action'] = 'descending';
     }
 
     public searching(action: string, segment: string) {
-        this.search[segment] = (action === 'start') ? true : false;
+        this.search[segment] = (action === 'start' || action === 'restart') ? true : false;
         if (action === 'end' || action === 'restart') {
             this.filter[segment] = {
                 'first_name': '',
@@ -380,38 +404,40 @@ export class SickLeaveComponent implements OnInit {
                 'location': '',
                 'end_date': '',
                 'start_date': ''
-            }
+            },
+                this.summarized[segment] = {
+                    'days': 0,
+                    'cost': 0
+                }
         }
     }
 
-    private onPageChange(event: PageEvent): void {
-        this.pagination = event
+    public isSearchable(column: string, type: string): boolean {
+        switch (type) {
+            case 'dates' :
+                return this.searchable.dates.includes(column);
+            case 'alphabetical':
+                return this.searchable.alphabetical.includes(column);
+            default:
+                return false;
+        }
+        ;
     }
 
-    public sorting(segment: string, field: string, event ?: Event): void {
-        console.log(event)
-        console.log(field)
-        console.log(event.target)
+    public getTotal(segment: string) {
+        this.summarized[segment] = {
+            'days': 0,
+            'cost': 0
+        }
+        let collection_days = document.getElementsByClassName(`${segment}-days`);
+        let collection_cost = document.getElementsByClassName(`${segment}-cost`);
 
-        this.sort[segment]['field'] = field;
-        (this.sort[segment]['action'] === 'descending') ?
-            this.sort[segment]['action'] = 'ascending' :
-            this.sort[segment]['action'] = 'descending';
+        for (let i = 0; i < collection_days.length; i++) {
+            this.summarized[segment].days += parseInt(collection_days[i].innerHTML)
+        }
 
-        console.log(event)
-        console.log(event.target)
+        for (let i = 0; i < collection_cost.length; i++) {
+            this.summarized[segment].cost += parseInt(collection_cost[i].innerHTML)
+        }
     }
-
-    public isSearchable(column: string) {
-        return this.searchable.alphabetical.includes(column) && this.searchable.dates.includes(column);
-    }
-
-    public isSearchableAlphabetical(column: string) {
-        return this.searchable.alphabetical.includes(column)
-    }
-
-    public isSearchableDates(column: string) {
-        return this.searchable.dates.includes(column)
-    }
-
 }

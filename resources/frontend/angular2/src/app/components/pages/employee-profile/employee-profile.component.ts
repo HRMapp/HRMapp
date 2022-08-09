@@ -37,7 +37,7 @@ export class EmployeeProfileComponent implements OnInit {
 };
     public is_edit;
     public is_new;
-    public action = 'view';
+    public action = 'me';
     public supervisors;
     public employees;
     form: FormGroup
@@ -64,7 +64,7 @@ export class EmployeeProfileComponent implements OnInit {
             }
         )
 
-        if (this.data.length > 0) {
+        if ('action' in this.data) {
             this.action = this.data['action'];
         }
 
@@ -73,8 +73,12 @@ export class EmployeeProfileComponent implements OnInit {
         }
 
         if (this.action === 'view') {
-            this.getEmployee();
+            this.getEmployeeById(this.data['employee_id']);
 
+        }
+
+        if (this.action === 'me') {
+            this.getEmployee();
         }
 
 
@@ -163,6 +167,16 @@ export class EmployeeProfileComponent implements OnInit {
                 )
             }, error => {
                 console.log(error);
+            }
+        )
+    }
+
+    public getEmployeeById(id){
+        this.employee_profile_service.getEmployee(id).subscribe( result => {
+                if (result) {
+                    this.employee = result;
+
+                }
             }
         )
     }

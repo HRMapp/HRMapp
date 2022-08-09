@@ -20,6 +20,7 @@ export class EmployeeProfileService {
     }
 
     public getEmployee(user): Observable<any> {
+        console.log(user)
         return this.http.get(this.url.base_url + '/employee/' + user, {headers: this.headers});
     }
 }

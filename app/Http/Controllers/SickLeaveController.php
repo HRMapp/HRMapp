@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\SickLeave;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\JsonResponse;
+use App\Exports\SickLeaveExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SickLeaveController extends Controller
 {
@@ -18,7 +20,7 @@ class SickLeaveController extends Controller
     {
         try {
             $sickLeave = SickLeave::join('employees', 'sick_leave.employee_id', '=', 'employees.id')
-                ->get(['sick_leave.*', 'employees.first_name','employees.last_name' ,'employees.position','employees.department', 'employees.location' ]);
+                ->get(['sick_leave.*', 'employees.first_name','employees.last_name' ,'employees.position','employees.department', 'employees.location', 'employees.user_id']);
 
 
         } catch (\Throwable $e) {
@@ -108,5 +110,11 @@ class SickLeaveController extends Controller
             return $this->handleThrowable($e);
         }
         return response()->json($sickLeave);
+    }
+
+
+    public function export()
+    {
+        return Excel::download(new SickLeaveExport, 'sick_leave_'. date('Y-m-d').'.xlsx');
     }
 }

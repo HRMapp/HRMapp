@@ -1,5 +1,5 @@
 <h2 mat-dialog-title *ngIf="!is_edit">Регистриране на нов болничен лист</h2>
-<h2 mat-dialog-title>Редактиране на болничен лист</h2>
+<h2 mat-dialog-title *ngIf="is_edit">Редактиране на болничен лист</h2>
 <mat-dialog-content>
 <form [formGroup]="form">
     <div class="form-group">
@@ -18,37 +18,35 @@
                 </ng-container>
             </mat-select>
         </mat-form-field>
+        <div class="leave-details">
+            <mat-form-field appearance="fill">
+                <mat-label>Избери начална и крайна дата</mat-label>
+                <mat-date-range-input [formGroup]="form" [rangePicker]="picker" required>
+                    <input matStartDate formControlName="start_date" placeholder="Начална дата"
+                           [(ngModel)]='sick_leave_request.start_date'>
+                    <input matEndDate formControlName="end_date" placeholder="Крайна дата"
+                           [(ngModel)]='sick_leave_request.end_date'>
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Избери начална и крайна дата</mat-label>
-            <mat-date-range-input [formGroup]="form" [rangePicker]="picker" required>
-                <input matStartDate formControlName="start_date" placeholder="Start date"
-                       [(ngModel)]='sick_leave_request.start_date'>
-                <input matEndDate formControlName="end_date" placeholder="End date"
-                       [(ngModel)]='sick_leave_request.end_date'>
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="form.controls.start_date.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                <mat-error *ngIf="form.controls.end_date.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            </mat-form-field>
 
-            <mat-error *ngIf="form.controls.start_date.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-            <mat-error *ngIf="form.controls.end_date.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Дни</mat-label>
+                <input matInput type="number" placeholder="Дни" [(ngModel)]='sick_leave_request.days'
+                       formControlName='days'>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Дни</mat-label>
-            <input matInput type="number" placeholder="Дни" [(ngModel)]='sick_leave_request.days'
-                   formControlName='days'>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Разход (лв)</mat-label>
-            <input matInput type="number" placeholder="Разход (лв)" [(ngModel)]='sick_leave_request.cost'
-                   formControlName='cost'>
-        </mat-form-field>
-
+            <mat-form-field appearance="fill">
+                <mat-label>Разход (лв)</mat-label>
+                <input matInput type="number" placeholder="Разход (лв)" [(ngModel)]='sick_leave_request.cost'
+                       formControlName='cost'>
+            </mat-form-field>
+        </div>
         <mat-dialog-actions>
-        <div class="submit-form">
             <div>
                 <button mat-button mat-dialog-close mat-dialog-close="cancel" class="btn btn-round btn-fill btn-default">
                     Отмени
@@ -66,8 +64,6 @@
                     </button>
                 </div>
             </ng-template>
-
-        </div>
         </mat-dialog-actions>
     </div>
 </form>

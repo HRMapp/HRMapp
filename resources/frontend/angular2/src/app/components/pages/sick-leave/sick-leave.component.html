@@ -27,8 +27,8 @@
                     </div>
                     <div class="search-grid" *ngIf="search.current_year" [@enterFromRight]>
                         <ng-container *ngFor="let search_val of columns">
-                            <ng-container *ngIf="isSearchableAlphabetical(search_val[0])">
-                                <div class="">
+                            <ng-container *ngIf="isSearchable(search_val[0], 'alphabetical')">
+                                <div class="" (keypress)="getTotal('current_year')">
                                     <mat-form-field appearance="fill">
                                         <mat-label>{{search_val[1]}}</mat-label>
                                         <input matInput type="text" placeholder="{{search_val[1]}}..."
@@ -41,8 +41,8 @@
                                     </mat-form-field>
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="isSearchableDates(search_val[0])">
-                                <div class="">
+                            <ng-container *ngIf="isSearchable(search_val[0], 'dates')">
+                                <div class="" (change)="getTotal('current_year')">
                                     <mat-form-field appearance="fill">
                                         <mat-label>{{search_val[1]}}</mat-label>
                                         <input matInput [matDatepicker]="picker"
@@ -76,7 +76,17 @@
                                 <ng-container *ngFor="let col of columns">
                                     <div class="content-header current-year-{{col[0]}}"
                                          (click)="sorting('current_year', col[0], $event)">
-                                        {{col[1]}}
+                                        <span>{{col[1]}}</span>
+                                        <span class="sort-arrow" *ngIf="col[0] != 'actions'">
+                                            <i class="material-icons"
+                                               [ngClass]="sort.current_year.field == col[0] && sort.current_year.action == 'ascending' ? 'active' : 'inactive'">
+                                                keyboard_arrow_up
+                                            </i>
+                                            <i class="material-icons"
+                                               [ngClass]="sort.current_year.field == col[0] && sort.current_year.action == 'descending' ? 'active' : 'inactive'">
+                                                keyboard_arrow_down
+                                            </i>
+                                        </span>
                                     </div>
                                 </ng-container>
                             </div>
@@ -98,7 +108,7 @@
                                     <div>{{sick_leave.location}}</div>
                                     <div>{{sick_leave.start_date | formatDisplayedDate}}</div>
                                     <div>{{sick_leave.end_date | formatDisplayedDate}}</div>
-                                    <div class="current_year-days"><span
+                                    <div><span
                                         class="current_year-days">{{sick_leave.days}}</span></div>
                                     <div>
                                         <ng-container *ngIf="sick_leave.cost; else no_data">
@@ -112,7 +122,7 @@
                                                 matTooltip="Профил"
                                                 [matTooltipPosition]="'above'"
                                                 class="btn btn-link btn-sm btn-just-icon"
-                                                (click)="showProile(sick_leave.employee_id)"
+                                                (click)="showProfile(sick_leave.user_id)"
                                         >
                                             <i class="material-icons profile-icon">person</i>
                                         </button>
@@ -153,14 +163,18 @@
                                 </div>
                                 <div>
                                 </div>
-                                <div><strong>{{summarized.current_year.days}}</strong></div>
-                                <div><strong><span>{{summarized.current_year.cost}}</span> лв.</strong></div>
+                                <div>
+                                    <strong>{{summarized.current_year.days}}</strong>
+                                </div>
+                                <div>
+                                    <strong><span>{{summarized.current_year.cost}}</span> лв.</strong>
+                                </div>
                                 <div class="actions">
                                     <div></div>
                                     <button mat-raised-button type="button"
                                             matTooltip="Изтегли" [matTooltipPosition]="'above'"
                                             class="btn btn-link btn-sm btn-just-icon"
-                                            (click)="showProfile(sick_leave.employee_id)"
+                                            (click)="export"
                                     >
                                         <i class="material-icons export-icon">cloud_download</i>
                                     </button>
@@ -187,8 +201,8 @@
                     </div>
                     <div class="search-grid" *ngIf="search.past_years" [@enterFromRight]>
                         <ng-container *ngFor="let search_val of columns">
-                            <ng-container *ngIf="isSearchableAlphabetical(search_val[0])">
-                                <div class="">
+                            <ng-container *ngIf="isSearchable(search_val[0], 'alphabetical')">
+                                <div class="" (keypress)="getTotal('past_years')">
                                     <mat-form-field appearance="fill">
                                         <mat-label>{{search_val[1]}}</mat-label>
                                         <input matInput type="text" placeholder="{{search_val[1]}}..."
@@ -201,8 +215,8 @@
                                     </mat-form-field>
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="isSearchableDates(search_val[0])">
-                                <div class="">
+                            <ng-container *ngIf="isSearchable(search_val[0], 'dates')">
+                                <div class="" (change)="getTotal('past_years')">
                                     <mat-form-field appearance="fill">
                                         <mat-label>{{search_val[1]}}</mat-label>
                                         <input matInput [matDatepicker]="picker"
@@ -235,7 +249,17 @@
                                 <ng-container *ngFor="let col of columns">
                                     <div class="content-header past_years-{{col[0]}}"
                                          (click)="sorting('past_years', col[0], $event)">
-                                        {{col[1]}}
+                                        <span>{{col[1]}}</span>
+                                        <span class="sort-arrow" *ngIf="col[0] != 'actions'">
+                                            <i class="material-icons"
+                                               [ngClass]="sort.past_years.field == col[0] && sort.past_years.action == 'ascending' ? 'active' : 'inactive'">
+                                                keyboard_arrow_up
+                                            </i>
+                                            <i class="material-icons"
+                                               [ngClass]="sort.past_years.field == col[0] && sort.past_years.action == 'descending' ? 'active' : 'inactive'">
+                                                keyboard_arrow_down
+                                            </i>
+                                        </span>
                                     </div>
                                 </ng-container>
                             </div>
@@ -258,7 +282,7 @@
                                     <div>{{sick_leave.location}}</div>
                                     <div>{{sick_leave.start_date | formatDisplayedDate}}</div>
                                     <div>{{sick_leave.end_date | formatDisplayedDate}}</div>
-                                    <div class="past_years-days"><span
+                                    <div><span
                                         class="past_years-days">{{sick_leave.days}}</span></div>
                                     <div>
                                         <ng-container *ngIf="sick_leave.cost; else no_data">
@@ -269,7 +293,7 @@
                                         <button mat-raised-button type="button"
                                                 matTooltip="Профил" [matTooltipPosition]="'above'"
                                                 class="btn btn-link btn-sm btn-just-icon"
-                                                (click)="showProfile(sick_leave.employee_id)"
+                                                (click)="showProfile(sick_leave.user_id)"
                                         >
                                             <i class="material-icons profile-icon">person</i>
                                         </button>
@@ -281,19 +305,22 @@
                                     <strong>Общо</strong>
                                 </div>
                                 <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
                                 <div>
+                                    <strong>{{summarized.past_years.days}}</strong>
                                 </div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div><strong>{{summarized.past_years.days}}</strong></div>
-                                <div><strong><span>{{summarized.past_years.cost}}</span> лв.</strong></div>
+                                <div>
+                                    <strong><span>{{summarized.past_years.cost}}</span> лв.</strong>
+                                </div>
                                 <div class="actions">
                                     <button mat-raised-button type="button"
                                             matTooltip="Изтегли" [matTooltipPosition]="'above'"
                                             class="btn btn-link btn-sm btn-just-icon"
-                                            (click)="showProfile(sick_leave.employee_id)"
+                                            (click)="export()"
                                     >
                                         <i class="material-icons export-icon">cloud_download</i>
                                     </button>

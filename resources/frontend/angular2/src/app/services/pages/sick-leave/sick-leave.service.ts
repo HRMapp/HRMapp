@@ -40,4 +40,8 @@ export class SickLeaveService {
     public delete(id: number): Observable<any> {
         return this.http.delete<any>(this.api_url + id, {headers: this.headers});
     }
+
+    public export(){
+        return this.http.get(this.api_url + 'export', {headers: this.headers});
+    }
 }

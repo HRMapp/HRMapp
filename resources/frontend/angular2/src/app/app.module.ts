@@ -41,8 +41,6 @@ import { MatDialogModule, MAT_DIALOG_DATA  } from '@angular/material/dialog';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-
-
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
