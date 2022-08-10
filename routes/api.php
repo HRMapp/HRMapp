@@ -32,8 +32,6 @@ Route::post('/users/register', [UserController::class, 'register']);
 Route::resource('/employee', EmployeeController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy'])
     ->middleware('auth:api');
-Route::get('/employee/id', EmployeeController::class, 'getEmployee')
-    ->middleware('auth:api');
 
 Route::resource('/salaries', SalariesController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy'])
