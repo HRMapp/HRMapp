@@ -10,6 +10,8 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { EmployeesComponent } from '../../components/pages/employees/employees.component';
 import { EmployeeProfileComponent } from '../../components/pages/employee-profile/employee-profile.component';
 import { SickLeaveComponent } from '../../components/pages/sick-leave/sick-leave.component';
+import { AbsencesComponent } from '../../components/pages/absences/absences.component';
+import { SettingsComponent } from '../../components/pages/settings/settings.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 
 export const AdminLayoutRoutes: Routes = [
@@ -65,5 +67,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'profile',  component: EmployeeProfileComponent },
     { path: 'employees',  component: EmployeesComponent },
     { path: 'sick-leave',  component: SickLeaveComponent },
+    { path: 'absences',  component: AbsencesComponent },
+    { path: 'settings',  component: SettingsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
 ];

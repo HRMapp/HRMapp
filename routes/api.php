@@ -6,6 +6,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SalariesController;
 use App\Http\Controllers\SickLeaveController;
+use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\PositionsController;
+use App\Http\Controllers\LocationsController;
+use App\Http\Controllers\AbsenceTypesController;
+use App\Http\Controllers\AbsencesController;
 use App\Http\Controllers\MailController;
 
 /*
@@ -45,3 +50,23 @@ Route::resource('/sick-leave', SickLeaveController::class)
 
 
 Route::get('/mail/me', [MailController::class, 'sendMail']);
+
+Route::resource('/departments', DepartmentsController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy'])
+    ->middleware('auth:api');
+
+Route::resource('/positions', PositionsController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy'])
+    ->middleware('auth:api');
+
+Route::resource('/locations', LocationsController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy'])
+    ->middleware('auth:api');
+
+Route::resource('/absence-types', AbsenceTypesController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy'])
+    ->middleware('auth:api');
+
+Route::resource('/absences', AbsencesController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy'])
+    ->middleware('auth:api');

@@ -19,6 +19,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/profile', title: 'Профил',  icon:'person', class: '' },
     { path: '/employees', title: 'Служители',  icon:'content_paste', class: '' },
     { path: '/sick-leave', title: 'Болнични',  icon:'library_books', class: '' },
+    { path: '/absences', title: 'Отпуски',  icon:'library_books', class: '' },
+    { path: '/settings', title: 'Настройки',  icon:'library_books', class: '' },
 ];
 
 @Component({

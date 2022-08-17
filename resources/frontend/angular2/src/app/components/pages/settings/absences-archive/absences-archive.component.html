@@ -1,0 +1,25 @@
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Отпуск/Архив
+            </mat-panel-title>
+            <mat-panel-description>
+                Добавяне/Премахване
+                <mat-icon>dashboard</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-container *ngIf="!loading">
+
+        </ng-container>
+        <div *ngIf="loading" class='loader'></div>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<ng-template #no_records>
+    <div class="no-records">
+        <h3>
+            Нямате регистрирани записи.
+        </h3>
+    </div>
+</ng-template>
