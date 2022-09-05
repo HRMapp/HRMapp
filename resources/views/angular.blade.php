@@ -18,7 +18,7 @@
 <!doctype html>
 <html>
 <head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <base href="http://hranazakuche.eu/">
+    <base href="/">
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png"/>
     <link rel="icon" type="image/png" href="./assets/img/favicon.png"/>
@@ -226,7 +226,7 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR-KEY-HERE"></script>
     <script>window.global = window;</script>
 
-<link rel="stylesheet" href="styles.fcb96d9959588c1a.css"></head>
+<link rel="stylesheet" href="/assets/angular/styles.fcb96d9959588c1a.css"></head>
 <body>
   <app-root>
     <div class="loader">
@@ -235,7 +235,7 @@
       </svg>
     </div>
   </app-root>
-<script src="runtime.533ea2bfd91e7b10.js" type="module"></script><script src="polyfills.812e67a6992b579b.js" type="module"></script><script src="scripts.8b5782bdafcedc9b.js" defer=""></script><script src="main.47aad73928b37da3.js" type="module"></script></body>
+<script src="/assets/angular/runtime.14db7c8f7de1cb61.js" type="module"></script><script src="/assets/angular/polyfills.812e67a6992b579b.js" type="module"></script><script src="/assets/angular/scripts.8b5782bdafcedc9b.js" defer=""></script><script src="/assets/angular/main.47aad73928b37da3.js" type="module"></script></body>
 
 
 </html>
