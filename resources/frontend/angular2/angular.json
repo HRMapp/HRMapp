@@ -62,9 +62,11 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+                "outputPath": "../../../public/assets/angular"
             },
             "development": {
+                "outputPath": "dist/assets/angular",
               "vendorChunk": true,
               "extractLicenses": false,
               "namedChunks": true,
