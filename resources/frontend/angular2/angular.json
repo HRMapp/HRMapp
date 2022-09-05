@@ -64,7 +64,7 @@
                 }
               ],
                 "outputPath": "../../../public/assets/angular",
-                "deployUrl": "public/assets/angular/"
+                "deployUrl": "/test/hr-app/public/assets/angular/"
             },
             "development": {
                 "outputPath": "dist/assets/angular",
