@@ -64,11 +64,11 @@
                 }
               ],
                 "outputPath": "../../../public/assets/angular",
-                "deployUrl": "/assets/angular/"
+                "deployUrl": "public/assets/angular/"
             },
             "development": {
                 "outputPath": "dist/assets/angular",
-                "baseHref": "/assets/angular/",
+                "baseHref": "public/assets/angular/",
               "vendorChunk": true,
               "extractLicenses": false,
               "namedChunks": true,
