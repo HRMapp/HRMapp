@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:prod": "ng build --base-href / --configuration production && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
+    "build:prod": "ng build --base-href http://hranazakuche.eu/ --configuration production && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
