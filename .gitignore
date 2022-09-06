@@ -16,3 +16,5 @@ yarn-error.log
 env.sh
 .idea
 .vscode
+docker-compose.yml
+error_log
