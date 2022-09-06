@@ -63,10 +63,12 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-                "outputPath": "../../../public/assets/angular"
+                "outputPath": "../../../public/assets/angular",
+                "deployUrl": "/test/hr-app/public/assets/angular/"
             },
             "development": {
                 "outputPath": "dist/assets/angular",
+                "baseHref": "public/assets/angular/",
               "vendorChunk": true,
               "extractLicenses": false,
               "namedChunks": true,

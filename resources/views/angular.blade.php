@@ -226,7 +226,7 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR-KEY-HERE"></script>
     <script>window.global = window;</script>
 
-<link rel="stylesheet" href="/assets/angular/styles.fcb96d9959588c1a.css"></head>
+<link rel="stylesheet" href="/test/hr-app/public/assets/angular/styles.fcb96d9959588c1a.css"></head>
 <body>
   <app-root>
     <div class="loader">
@@ -235,7 +235,7 @@
       </svg>
     </div>
   </app-root>
-<script src="/assets/angular/runtime.14db7c8f7de1cb61.js" type="module"></script><script src="/assets/angular/polyfills.812e67a6992b579b.js" type="module"></script><script src="/assets/angular/scripts.8b5782bdafcedc9b.js" defer=""></script><script src="/assets/angular/main.47aad73928b37da3.js" type="module"></script></body>
+<script src="/test/hr-app/public/assets/angular/runtime.ec2521506ade3a6c.js" type="module"></script><script src="/test/hr-app/public/assets/angular/polyfills.812e67a6992b579b.js" type="module"></script><script src="/test/hr-app/public/assets/angular/scripts.8b5782bdafcedc9b.js" defer=""></script><script src="/test/hr-app/public/assets/angular/main.47aad73928b37da3.js" type="module"></script></body>
 
 
 </html>
