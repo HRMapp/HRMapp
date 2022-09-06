@@ -19,7 +19,7 @@ export class SickLeaveService {
         });
     }
 
-    private api_url = this.url.base_url + '/sick-leave/';
+    private api_url = this.url.base_url + '/sick-leave';
 
     public get(): Observable<any> {
         return this.http.get(this.api_url, {headers: this.headers});
@@ -34,14 +34,14 @@ export class SickLeaveService {
         let options = {
             headers: this.headers
         }
-        return this.http.put<any>(this.api_url + id, s_request, options);
+        return this.http.put<any>(this.api_url  + '/' + id, s_request, options);
     }
 
     public delete(id: number): Observable<any> {
-        return this.http.delete<any>(this.api_url + id, {headers: this.headers});
+        return this.http.delete<any>(this.api_url + '/' + id, {headers: this.headers});
     }
 
     public export(){
-        return this.http.get(this.api_url + 'export', {headers: this.headers});
+        return this.http.get(this.api_url + '/' + 'export', {headers: this.headers});
     }
 }
