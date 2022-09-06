@@ -28,45 +28,84 @@ use App\Http\Controllers\MailController;
 //    return $request->user();
 //});
 
+
+/*
+ * AUTH SHOULD BE REMVOED FOR NOW FOR DEV PURPOSES, SSL IS NEEDED
+ */
 //Route::any('/{any}', [UserController::class, 'index'])->where('any', '^(?!api).*$');
+//Route::any('/users', [UserController::class, 'index']);
+//Route::get('/users/me', [UserController::class, 'user'])->middleware('auth:api');
+//Route::post('/users/register', [UserController::class, 'register']);
+//
+////Route::get('/employee/me', [EmployeeController::class, 'me'])->middleware('auth:api');
+//Route::resource('/employee', EmployeeController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+//
+//Route::resource('/salaries', SalariesController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+//
+//Route::get('/sick-leave/export', [SickLeaveController::class, 'export'])
+//    ->middleware('auth:api');
+//Route::resource('/sick-leave', SickLeaveController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+//
+//
+//Route::get('/mail/me', [MailController::class, 'sendMail']);
+//
+//Route::resource('/departments', DepartmentsController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+//
+//Route::resource('/positions', PositionsController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+//
+//Route::resource('/locations', LocationsController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+//
+//Route::resource('/absence-types', AbsenceTypesController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+//
+//Route::resource('/absences', AbsencesController::class)
+//    ->only(['index', 'show', 'store', 'update', 'destroy'])
+//    ->middleware('auth:api');
+
+
 Route::any('/users', [UserController::class, 'index']);
-Route::get('/users/me', [UserController::class, 'user'])->middleware('auth:api');
+Route::get('/users/me', [UserController::class, 'user']);
 Route::post('/users/register', [UserController::class, 'register']);
 
 //Route::get('/employee/me', [EmployeeController::class, 'me'])->middleware('auth:api');
 Route::resource('/employee', EmployeeController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::resource('/salaries', SalariesController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::get('/sick-leave/export', [SickLeaveController::class, 'export'])
     ->middleware('auth:api');
 Route::resource('/sick-leave', SickLeaveController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 
 Route::get('/mail/me', [MailController::class, 'sendMail']);
 
 Route::resource('/departments', DepartmentsController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::resource('/positions', PositionsController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::resource('/locations', LocationsController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::resource('/absence-types', AbsenceTypesController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::resource('/absences', AbsencesController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy'])
-    ->middleware('auth:api');
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
