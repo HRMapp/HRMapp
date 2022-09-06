@@ -9,7 +9,7 @@ import {UrlBuilderService} from '../../helpers/url-builder/url-builder.service'
 export class AbsenceTypesService {
 
     private headers;
-    private api_url = this.url.base_url + '/absence-types/';
+    private api_url = this.url.base_url + '/absence-types';
 
     constructor(
         private http: HttpClient,
@@ -33,11 +33,11 @@ export class AbsenceTypesService {
         let options = {
             headers: this.headers
         }
-        return this.http.put<any>(this.api_url + id, absence_type, options);
+        return this.http.put<any>(this.api_url + '/' + id, absence_type, options);
     }
 
     public delete(absence_type: number): Observable<any> {
-        return this.http.delete<any>(this.api_url + absence_type, {headers: this.headers});
+        return this.http.delete<any>(this.api_url + '/' + absence_type, {headers: this.headers});
     }
 }
 
