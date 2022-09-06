@@ -9,7 +9,7 @@ import {UrlBuilderService} from '../../helpers/url-builder/url-builder.service'
 export class PositionsService {
 
     private headers;
-    private api_url = this.url.base_url + '/positions/';
+    private api_url = this.url.base_url + '/positions';
 
     constructor(
         private http: HttpClient,
@@ -33,11 +33,11 @@ export class PositionsService {
         let options = {
             headers: this.headers
         }
-        return this.http.put<any>(this.api_url + id, position, options);
+        return this.http.put<any>(this.api_url + '/' + id, position, options);
     }
 
     public delete(position_id: number): Observable<any> {
-        return this.http.delete<any>(this.api_url + position_id, {headers: this.headers});
+        return this.http.delete<any>(this.api_url + '/' + position_id, {headers: this.headers});
     }
 }
 
