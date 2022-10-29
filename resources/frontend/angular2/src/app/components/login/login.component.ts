@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private fb: FormBuilder,
       private http: HttpClient,
-      private platformLocation: PlatformLocation,
+      private platform_location: PlatformLocation,
       private router: Router
   ) { }
 
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
             client_secret: 'eZYTB9xw5wOXs29KlWubDpJaLgrd8tAw1AKM1Us8',
             scope: '*'
         };
-        this.http.post('http://' + this.platformLocation.hostname + '/oauth/token', data).subscribe(
+        this.http.post(this.platform_location.protocol + '//' + this.platform_location.hostname + '/oauth/token', data).subscribe(
             (result: any) =>{
                 console.log('success');
                 console.log(result);

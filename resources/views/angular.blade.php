@@ -235,7 +235,7 @@
       </svg>
     </div>
   </app-root>
-<script src="/test/hr-app/public/assets/angular/runtime.5c486620279b2ceb.js" type="module"></script><script src="/test/hr-app/public/assets/angular/polyfills.812e67a6992b579b.js" type="module"></script><script src="/test/hr-app/public/assets/angular/scripts.8b5782bdafcedc9b.js" defer=""></script><script src="/test/hr-app/public/assets/angular/main.9f43e4e0c564285e.js" type="module"></script></body>
+<script src="/test/hr-app/public/assets/angular/runtime.5c486620279b2ceb.js" type="module"></script><script src="/test/hr-app/public/assets/angular/polyfills.812e67a6992b579b.js" type="module"></script><script src="/test/hr-app/public/assets/angular/scripts.8b5782bdafcedc9b.js" defer=""></script><script src="/test/hr-app/public/assets/angular/main.1ec10f203fbdbc04.js" type="module"></script></body>
 
 
 </html>
