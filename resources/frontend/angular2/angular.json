@@ -1,70 +1,30 @@
 {
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "cli": {
-        "analytics": false
-    },
-    "defaultProject": "material-dashboard-angular",
+    "version": 1,
     "newProjectRoot": "projects",
     "projects": {
         "material-dashboard-angular": {
+            "root": "e2e",
+            "sourceRoot": "src",
+            "projectType": "application",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
-                    "configurations": {
-                        "development": {
-                            "buildOptimizer": false,
-                            "extractLicenses": false,
-                            "namedChunks": true,
-                            "optimization": {
-                                "fonts": true,
-                                "scripts": true,
-                                "styles": {
-                                    "inlineCritical": true,
-                                    "minify": false
-                                }
-                            },
-                            "outputHashing": "all",
-                            "sourceMap": true,
-                            "vendorChunk": true
-                        },
-                        "production": {
-                            "buildOptimizer": true,
-                            "extractLicenses": true,
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "namedChunks": false,
-                            "optimization": {
-                                "fonts": true,
-                                "scripts": true,
-                                "styles": {
-                                    "inlineCritical": false,
-                                    "minify": false
-                                }
-                            },
-                            "outputHashing": "all",
-                            "outputPath": "../../../public/assets/angular",
-                            "sourceMap": false,
-                            "vendorChunk": false
-                        }
-                    },
                     "options": {
-                        "allowedCommonJsDependencies": [
-                            "rxjs/add/operator/filter",
-                            "jquery",
-                            "chartist"
-                        ],
+                        "outputPath": "dist",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "tsConfig": "src/tsconfig.app.json",
+                        "polyfills": "src/polyfills.ts",
                         "assets": [
                             "src/assets",
                             "src/favicon.ico"
                         ],
-                        "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "outputPath": "dist",
-                        "polyfills": "src/polyfills.ts",
+                        "styles": [
+                            "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+                            "src/assets/scss/material-dashboard.scss",
+                            "src/assets/css/demo.css"
+                        ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.js",
                             "node_modules/popper.js/dist/umd/popper.js",
@@ -75,13 +35,71 @@
                             "node_modules/bootstrap-notify/bootstrap-notify.js",
                             "node_modules/chartist/dist/chartist.js"
                         ],
-                        "styles": [
-                            "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
-                            "src/assets/scss/material-dashboard.scss",
-                            "src/assets/css/demo.css"
-                        ],
-                        "tsConfig": "src/tsconfig.app.json"
+                        "allowedCommonJsDependencies": [
+                            "rxjs/add/operator/filter",
+                            "jquery",
+                            "chartist"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "optimization": {
+                                "scripts": true,
+                                "styles": {
+                                    "minify": false,
+                                    "inlineCritical": false
+                                },
+                                "fonts": true
+                            },
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputPath": "../../../public/assets/angular",
+                            "deployUrl": "/test/hr-app/public/assets/angular/"
+                        },
+                        "development": {
+                            "outputPath": "dist/assets/angular",
+                            "baseHref": "public/assets/angular/",
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "namedChunks": true,
+                            "buildOptimizer": false,
+                            "sourceMap": true,
+                            "optimization": {
+                                "scripts": true,
+                                "styles": {
+                                    "minify": false,
+                                    "inlineCritical": true
+                                },
+                                "fonts": true
+                            },
+                            "outputHashing": "all"
+                        }
                     }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "material-dashboard-angular:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "material-dashboard-angular:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "material-dashboard-angular:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -89,42 +107,13 @@
                         "browserTarget": "material-dashboard-angular:build"
                     }
                 },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "exclude": [
-                        ],
-                        "tsConfig": [
-                            "src/tsconfig.app.json",
-                            "src/tsconfig.spec.json"
-                        ]
-                    }
-                },
-                "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "configurations": {
-                        "development": {
-                            "browserTarget": "material-dashboard-angular:build:development"
-                        },
-                        "production": {
-                            "browserTarget": "material-dashboard-angular:build:production"
-                        }
-                    },
-                    "defaultConfiguration": "development",
-                    "options": {
-                        "browserTarget": "material-dashboard-angular:build"
-                    }
-                },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "assets": [
-                            "src/assets",
-                            "src/favicon.ico"
-                        ],
-                        "karmaConfig": "./karma.conf.js",
                         "main": "src/test.ts",
+                        "karmaConfig": "./karma.conf.js",
                         "polyfills": "src/polyfills.ts",
+                        "tsConfig": "src/tsconfig.spec.json",
                         "scripts": [
                             "node_modules/jquery/dist/jquery.js",
                             "node_modules/popper.js/dist/umd/popper.js",
@@ -140,40 +129,52 @@
                             "src/assets/scss/material-dashboard.scss",
                             "src/assets/css/demo.css"
                         ],
-                        "tsConfig": "src/tsconfig.spec.json"
-                    }
-                }
-            },
-            "projectType": "application",
-            "root": "e2e",
-            "sourceRoot": "src"
-        },
-        "material-dashboard-angular-e2e": {
-            "architect": {
-                "e2e": {
-                    "builder": "@angular-devkit/build-angular:protractor",
-                    "options": {
-                        "devServerTarget": "material-dashboard-angular:serve",
-                        "protractorConfig": "./protractor.conf.js"
+                        "assets": [
+                            "src/assets",
+                            "src/favicon.ico"
+                        ]
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "exclude": [
-                        ],
                         "tsConfig": [
-                            "e2e/tsconfig.e2e.json"
-                        ]
+                            "src/tsconfig.app.json",
+                            "src/tsconfig.spec.json"
+                        ],
+                        "exclude": []
                     }
                 }
-            },
-            "projectType": "application",
+            }
+        },
+        "material-dashboard-angular-e2e": {
             "root": "e2e",
-            "sourceRoot": ""
+            "sourceRoot": "",
+            "projectType": "application",
+            "architect": {
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "./protractor.conf.js",
+                        "devServerTarget": "material-dashboard-angular:serve"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "e2e/tsconfig.e2e.json"
+                        ],
+                        "exclude": []
+                    }
+                }
+            }
         }
     },
+    "defaultProject": "material-dashboard-angular",
     "schematics": {
     },
-    "version": 1
+    "cli": {
+        "analytics": false
+    }
 }
