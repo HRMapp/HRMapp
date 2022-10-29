@@ -10,6 +10,7 @@ import {SwalService} from "../../../../services/helpers/swal/swal.service";
 
 
 import {SickLeaveService} from '../../../../services/pages/sick-leave/sick-leave.service';
+
 @Component({
     selector: 'absence',
     templateUrl: './absence.component.html',
@@ -31,7 +32,6 @@ export class AbsenceComponent implements OnInit {
         'approval': '',
         'approval_status': '',
         'days': '',
-        'cost': '',
         'archive': '',
     }
 
@@ -39,10 +39,11 @@ export class AbsenceComponent implements OnInit {
         employee_id: ['', [Validators.required]],
         start_date: ['', [Validators.required]],
         end_date: ['', [Validators.required]],
-        days: ['', [Validators.required]],
-        cost: '',
+        days: ['', [Validators.required]]
     });
 
+    private absences_archive;
+    public available_days;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -57,10 +58,10 @@ export class AbsenceComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         (this.data?.absence) ? this.injectEditData() : '';
         this.getEmployees();
         this.getAbsenceTypes();
+        this.absences_archive = this.data?.absences_archive;
     };
 
     private injectEditData(): void {
@@ -73,12 +74,11 @@ export class AbsenceComponent implements OnInit {
             'approval': this.data.approval.end_date,
             'approval_status': this.data.approval_status.end_date,
             'days': this.data.absence.days,
-            'cost': this.data.absence.cost,
             'archive': this.data.absence.archive,
         }
     };
 
-    private getAbsenceTypes(): void  {
+    private getAbsenceTypes(): void {
         this.loader = true;
         this.absence_types_service.get().subscribe(
             result => {
@@ -164,4 +164,26 @@ export class AbsenceComponent implements OnInit {
             'employee': this.employees.filter(e => e.id == this.absence.employee_id)
         };
     };
+
+    public calcAvailableDays(employee_id) {
+        if (this.absence.employee_id) {
+            this.available_days = Math.random();
+
+            let archived = this.absences_archive.find(el => {
+                return el.employee_id === employee_id && this.absence.type == el.type_id;
+            })
+
+            this.available_days = this.calcPaidDaysAfterArchivedDate(archived.due_date) + archived.days
+        }
+    }
+
+    private calcPaidDaysAfterArchivedDate(archive_due_date){
+
+        let [year, month, day] = archive_due_date.split('-');
+        let date = `${month}/${day}/${year}`;
+
+        return Math.floor(((new Date().getTime() - new Date(date).getTime())/ (1000 * 3600 * 24)) / 18.25);
+    }
+
+
 }

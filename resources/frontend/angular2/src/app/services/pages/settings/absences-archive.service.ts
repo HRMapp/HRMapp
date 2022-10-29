@@ -26,6 +26,7 @@ export class AbsencesArchiveService {
     }
 
     public add(absence): Observable<any> {
+        console.log(absence);
         return this.http.post(this.api_url, absence, {headers: this.headers});
     }
 

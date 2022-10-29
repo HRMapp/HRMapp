@@ -10,10 +10,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 import { PositionComponent } from './positions/position/position.component';
 import { AbsenceTypesComponent } from './absence-types/absence-types.component';
 import { OfficialHolidaysComponent } from './official-holidays/official-holidays.component';
 import { AbsencesArchiveComponent } from './absences-archive/absences-archive.component';
+import { AbsencesArchiveRegisterComponent } from './absences-archive/archive-register/archive-register.component';
+import {PipesModule} from '../../../pipes/pipes.module'
 
 
 @NgModule({
@@ -25,6 +33,7 @@ import { AbsencesArchiveComponent } from './absences-archive/absences-archive.co
         AbsenceTypesComponent,
         OfficialHolidaysComponent,
         AbsencesArchiveComponent,
+        AbsencesArchiveRegisterComponent,
     ],
     imports: [
         CommonModule,
@@ -34,8 +43,15 @@ import { AbsencesArchiveComponent } from './absences-archive/absences-archive.co
         MatInputModule,
         MatTabsModule,
         MatChipsModule,
+        MatDialogModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule,
+        PipesModule,
+        MatDatepickerModule
     ],
     exports: [
         DepartmentsComponent,
@@ -44,14 +60,8 @@ import { AbsencesArchiveComponent } from './absences-archive/absences-archive.co
         PositionComponent,
         AbsenceTypesComponent,
         AbsencesArchiveComponent,
+        AbsencesArchiveRegisterComponent,
         OfficialHolidaysComponent,
-        MatExpansionModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatTabsModule,
-        FormsModule,
-        ReactiveFormsModule
     ]
 })
 export class SettingsModule {

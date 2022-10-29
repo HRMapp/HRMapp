@@ -25,7 +25,9 @@
             <div class="form-group">
                 <mat-form-field appearance="fill">
                     <mat-label>Избери служител</mat-label>
-                    <mat-select formControlName='employee_id' [(ngModel)]='absence.employee_id'>
+                    <mat-select formControlName='employee_id' [(ngModel)]='absence.employee_id'
+                                (selectionChange)='calcAvailableDays($event.value)'>
+                    >
                         <mat-form-field>
                             <input matInput (keyup)="filtering($event.target.value)"
                                    placeholder="Търсене по име, фамилия, длъжност, департамент, локация...">
@@ -62,11 +64,11 @@
                                formControlName='days'>
                     </mat-form-field>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Разход (лв)</mat-label>
-                        <input matInput type="number" placeholder="Разход (лв)" [(ngModel)]='absence.cost'
-                               formControlName='cost'>
-                    </mat-form-field>
+                    <div *ngIf="absence.employee_id && absence.type == 1">
+                        <p>
+                            Полагаем опуск до днешна дата: {{available_days}}
+                        </p>
+                    </div>
                     <mat-form-field *ngIf="absence.approval" appearance="fill">
                         <mat-label>Разход (лв)</mat-label>
                         <input matInput type="number" placeholder="Статус" [(ngModel)]='absence.approval_status'

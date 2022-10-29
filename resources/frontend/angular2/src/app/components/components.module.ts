@@ -30,22 +30,9 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {SearchEmployeesPipe} from '../pipes/pages/search-employees.pipe';
-import {DatePipe} from '@angular/common';
-import {SearchFirstNamePipe} from '../pipes/pages/search-first-name.pipe';
-import {SearchLastNamePipe} from '../pipes/pages/search-last-name.pipe';
-import {SearchPositionPipe} from '../pipes/pages/search-position.pipe';
-import {SearchLocationPipe} from '../pipes/pages/search-location.pipe';
-import {SearchDepartmentPipe} from '../pipes/pages/search-department.pipe';
-import {PaginationPipe} from '../pipes/pages/pagination.pipe';
-import {StartDatePipe} from '../pipes/pages/start-date.pipe';
-import {EndDatePipe} from '../pipes/pages/end-date.pipe';
-import {SortDataPipe} from '../pipes/pages/sort-data.pipe';
-import {SearchTextPipe} from '../pipes/pages/search-text.pipe';
-import {FormatDisplayedDatePipe} from '../pipes/pages/format-displayed-date.pipe';
+import {PipesModule} from '../pipes/pipes.module'
 
 
 
@@ -69,8 +56,8 @@ import {FormatDisplayedDatePipe} from '../pipes/pages/format-displayed-date.pipe
         MatChipsModule,
         MatTabsModule,
         MatFormFieldModule,
-        SettingsModule
-
+        SettingsModule,
+        PipesModule
 
     ],
     declarations: [
@@ -82,18 +69,6 @@ import {FormatDisplayedDatePipe} from '../pipes/pages/format-displayed-date.pipe
         EmployeeProfileComponent,
         SickLeaveComponent,
         RegisterSickLeaveComponent,
-        SearchEmployeesPipe,
-        SearchFirstNamePipe,
-        SearchLastNamePipe,
-        SearchPositionPipe,
-        SearchLocationPipe,
-        SearchDepartmentPipe,
-        PaginationPipe,
-        StartDatePipe,
-        EndDatePipe,
-        FormatDisplayedDatePipe,
-        SearchTextPipe,
-        SortDataPipe,
         AbsencesComponent,
         AbsenceComponent,
         SettingsComponent,
@@ -109,22 +84,8 @@ import {FormatDisplayedDatePipe} from '../pipes/pages/format-displayed-date.pipe
         SickLeaveComponent,
         AbsencesComponent,
         SettingsComponent,
-        SearchEmployeesPipe,
-        SearchFirstNamePipe,
-        SearchLastNamePipe,
-        SearchPositionPipe,
-        SearchLocationPipe,
-        SearchDepartmentPipe,
-        PaginationPipe,
-        StartDatePipe,
-        EndDatePipe,
-        FormatDisplayedDatePipe,
-        SearchTextPipe,
-        SortDataPipe
     ],
     providers: [
-        DatePipe,
-        {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     ],
 })
 export class ComponentsModule {

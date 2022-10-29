@@ -11,6 +11,7 @@ use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\AbsenceTypesController;
 use App\Http\Controllers\AbsencesController;
+use App\Http\Controllers\AbsencesArchiveController;
 use App\Http\Controllers\MailController;
 
 /*
@@ -68,5 +69,9 @@ Route::resource('/absence-types', AbsenceTypesController::class)
     ->middleware('auth:api');
 
 Route::resource('/absences', AbsencesController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy'])
+    ->middleware('auth:api');
+
+Route::resource('/absences-archive', AbsencesArchiveController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy'])
     ->middleware('auth:api');
