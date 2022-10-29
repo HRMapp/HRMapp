@@ -16,7 +16,9 @@ use App\Http\Controllers\UserController;
 
 //Route::any('/{any}', [AngularController::class, 'index'])->where('any', '^(?!api).*$');
 //Route::any('/{any}', [UserController::class, 'index'])->where('any', '^(?!api).*$');
-Route::any('/', [UserController::class, 'index']);
+//Route::any('/', [UserController::class, 'index']);
+
+Route::any('/', [AngularController::class, 'index']);
 
 //Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
 
