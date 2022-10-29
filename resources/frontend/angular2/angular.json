@@ -68,7 +68,7 @@
                         },
                         "development": {
                             "outputPath": "dist/assets/angular",
-                            "baseHref": "public/assets/angular/",
+                            "baseHref": "/",
                             "vendorChunk": true,
                             "extractLicenses": false,
                             "namedChunks": true,
