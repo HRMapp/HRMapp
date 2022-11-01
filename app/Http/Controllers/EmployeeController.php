@@ -16,8 +16,9 @@ class EmployeeController extends Controller
     public function index()
     {
         try {
-            $employees = Employee::join('salaries', 'employees.id', '=', 'salaries.employee_id')
-                ->get(['employees.*', 'salaries.gross_salary']);
+//            $employees = Employee::join('salaries', 'employees.id', '=', 'salaries.employee_id')
+//                ->get(['employees.*', 'salaries.gross_salary']);
+            $employees = Employee::all();
             return response()->json($employees);
 
             // return only the employees //

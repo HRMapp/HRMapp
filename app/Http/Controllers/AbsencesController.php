@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Routing\Controller;
 use Illuminate\Http\JsonResponse;
 
@@ -54,7 +55,6 @@ class AbsencesController extends Controller
                 'start_date' => $request['start_date'],
                 'end_date' => $request['end_date'],
                 'days' => $request['days'],
-                'cost' => $request['cost'],
                 'archive' => $request['archive'],
             ]);
         } catch (\Exception $e) {
@@ -105,7 +105,6 @@ class AbsencesController extends Controller
                     'start_date' => $request['start_date'],
                     'end_date' => $request['end_date'],
                     'days' => $request['days'],
-                    'cost' => $request['cost'],
                     'archive' => $request['archive'],
                 ]
             );
