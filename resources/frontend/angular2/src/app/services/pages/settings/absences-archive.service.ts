@@ -19,13 +19,14 @@ export class AbsencesArchiveService {
         });
     }
 
-    private api_url = this.url.base_url + '/absences-archive';
+    private api_url = this.url.base_url + '/absences-archive/';
 
     public get(): Observable<any> {
         return this.http.get(this.api_url, {headers: this.headers});
     }
 
     public add(absence): Observable<any> {
+        console.log(absence);
         return this.http.post(this.api_url, absence, {headers: this.headers});
     }
 
@@ -34,14 +35,14 @@ export class AbsencesArchiveService {
         let options = {
             headers: this.headers
         }
-        return this.http.put<any>(this.api_url + '/' + id, absence, options);
+        return this.http.put<any>(this.api_url + id, absence, options);
     }
 
     public delete(id: number): Observable<any> {
-        return this.http.delete<any>(this.api_url + '/' + id, {headers: this.headers});
+        return this.http.delete<any>(this.api_url + id, {headers: this.headers});
     }
 
     public export(){
-        return this.http.get(this.api_url + '/' + 'export', {headers: this.headers});
+        return this.http.get(this.api_url + 'export', {headers: this.headers});
     }
 }

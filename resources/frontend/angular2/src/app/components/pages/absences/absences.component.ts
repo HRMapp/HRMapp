@@ -1,6 +1,6 @@
 import {Component, OnInit, NgModule, AfterViewInit} from '@angular/core';
 import {EmployeeProfileComponent} from '../employee-profile/employee-profile.component'
-
+import {AbsencesArchiveService} from '../../../services/pages/settings/absences-archive.service';
 import {AbsencesService} from '../../../services/pages/absences/absences.service'
 import {RegisterSickLeaveComponent} from '../sick-leave/register-sick-leave/register-sick-leave.component'
 import {AbsenceComponent} from './absence/absence.component'
@@ -147,9 +147,12 @@ export class AbsencesComponent implements OnInit {
 
     public loading = true;
 
+    private absences_archive
+
     constructor(
         // private sick_leave_service: SickLeaveService,
         private absences_service: AbsencesService,
+        private absence_archive_service: AbsencesArchiveService,
         private dialog: MatDialog,
         private swal_service: SwalService
     ) {
@@ -166,7 +169,13 @@ export class AbsencesComponent implements OnInit {
             this.getTotal('current_year');
             this.getTotal('past_years')
         }, 2000);
+        this.getAbsenceArchive();
+    }
 
+    private getAbsenceArchive(): void {
+        this.absence_archive_service.get().subscribe(result => {
+            this.absences_archive = result;
+        });
     }
 
     private get(): void {
@@ -297,7 +306,9 @@ export class AbsencesComponent implements OnInit {
 
     public add(): void {
         let dialogRef = this.dialog.open(AbsenceComponent, {
-            data: {},
+            data: {
+                absences_archive: this.absences_archive
+            },
             autoFocus: false,
             disableClose: false
         });

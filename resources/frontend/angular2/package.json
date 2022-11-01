@@ -5,8 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:prod": "ng build --base-href / --configuration production && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
-    "build:prod-test": "ng build --base-href / --deploy-url /assets/angular/ --configuration production && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
